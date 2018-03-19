@@ -1,6 +1,6 @@
-const app = requre('express')();
+var app = require('express')();
 
-const posts = [
+var posts = [
   {
     id: 1,
     author: "John",
@@ -30,11 +30,16 @@ const posts = [
 app.set("view engine", "ejs");
 
 app.get("/", function(req, res){
-  const post = posts.filter(function(post){
+  res.render("home", {posts: posts});
+});
+
+
+app.get("/post/:id", function(req, res){
+  var post = posts.filter(function(post){
     return post.id == req.params.id;
   })[0];
 
-  res.rener('post', {
+  res.render('post', {
     author: post.author,
     title: post.title,
     body: post.body
